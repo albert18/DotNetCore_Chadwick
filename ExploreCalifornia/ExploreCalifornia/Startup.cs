@@ -28,12 +28,27 @@ namespace ExploreCalifornia
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapGet("/", async context =>
+            //    {
+            //        await context.Response.WriteAsync("HELLOW!");
+            //    });
+            //});
+
+            app.Use(async (context, next) =>
             {
-                endpoints.MapGet("/", async context =>
+                if (context.Request.Path.Value.StartsWith("/hello"))
                 {
-                    await context.Response.WriteAsync("HELLOW!");
-                });
+                    await context.Response.WriteAsync("TEST Hello");
+                }
+                
+                await next();
+            });
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("TEST");
             });
         }
     }
