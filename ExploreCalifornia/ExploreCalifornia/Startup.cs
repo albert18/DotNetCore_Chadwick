@@ -21,6 +21,9 @@ namespace ExploreCalifornia
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //ERROR must go to properties > Debug and change enviroment
+            app.UseExceptionHandler("/error.html");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -36,20 +39,39 @@ namespace ExploreCalifornia
             //    });
             //});
 
+
+            #region Middleware App Use
+            //app.Use(async (context, next) =>
+            //{
+            //    if (context.Request.Path.Value.StartsWith("/hello"))
+            //    {
+            //        await context.Response.WriteAsync("TEST Hello");
+            //    }
+
+            //    await next();
+            //});
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("TEST");
+            //}); 
+            #endregion
+
+            #region Error - bad practice and security issue
             app.Use(async (context, next) =>
             {
-                if (context.Request.Path.Value.StartsWith("/hello"))
+                if (context.Request.Path.Value.Contains("invalid"))
                 {
-                    await context.Response.WriteAsync("TEST Hello");
+                    throw new Exception("ERROR!");
                 }
-                
+
                 await next();
             });
+            #endregion
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("TEST");
-            });
+            #region When serving static files
+            app.UseFileServer(); 
+            #endregion
         }
     }
 }
