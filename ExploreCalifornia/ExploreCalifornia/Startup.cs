@@ -33,7 +33,7 @@ namespace ExploreCalifornia
             //ERROR must go to properties > Debug and change enviroment
             app.UseExceptionHandler("/error.html");
 
-            if (configuration.GetValue<bool>("EnableDeveloperExceptions"))
+            if (configuration.GetValue<bool>("FeatureToggles:EnableDeveloperExceptions"))
             {
                 app.UseDeveloperExceptionPage();
             }
