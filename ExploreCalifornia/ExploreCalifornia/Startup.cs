@@ -28,6 +28,9 @@ namespace ExploreCalifornia
             services.AddTransient<FeatureToggles>(x => new FeatureToggles {
                 DeveloperExceptions = configuration.GetValue<bool>("FeatureToggles:DeveloperExceptions")
             });
+
+            //Adding MVC
+            services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,7 +84,19 @@ namespace ExploreCalifornia
             });
             #endregion
 
-            #region When serving static files
+
+
+            #region Adding MVC
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("Default",
+                    "{controller=Home}/{action=Index}/{id?}"
+                );
+            }); 
+            #endregion
+
+
+            #region When serving static files like CSS/Images - wwwroot
             app.UseFileServer(); 
             #endregion
         }
