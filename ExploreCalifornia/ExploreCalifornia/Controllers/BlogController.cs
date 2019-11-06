@@ -13,9 +13,18 @@ namespace ExploreCalifornia.Controllers
             return View();
         }
 
-        public IActionResult Post(string id)
+        public IActionResult Post(int? id)
         {
-            return new ContentResult {  Content = id };
+            if (id == null)
+            {
+                return new ContentResult { Content = "null" };
+            }
+            else 
+            {
+                return new ContentResult { Content = id.ToString() };
+            }
+
+            
         }
     }
 }
