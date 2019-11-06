@@ -11,7 +11,7 @@ namespace ExploreCalifornia.Controllers
 
     public class BlogController : Controller
     {
-        
+
         public IActionResult Index()
         {
             return View();
@@ -28,12 +28,38 @@ namespace ExploreCalifornia.Controllers
                 Body = "This is a great blog"
             };
 
-
-
             return View(post);
             //return new ContentResult { Content = string.Format("Year: {0}, Month: {1}, Key: {2}", year,month,key) };
-            
         }
+
+
+        [HttpGet, Route("create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Post Data
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("create")]
+        public IActionResult Create(Post post)
+        {
+            post.Author = User.Identity.Name;
+            post.Posted = DateTime.Now;
+
+            return View();
+        }
+
+        //First approach OR you can use BIND attribute
+        //public class classCreatePostRequest
+        //{
+        //    classCreatePostRequest post
+
+        //    public string Title { get; set; }
+        //    public string Body { get; set; }
+        //}
 
         //public IActionResult Post(int? id)
         //{
