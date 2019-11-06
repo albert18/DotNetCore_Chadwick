@@ -10,10 +10,10 @@ namespace ExploreCalifornia.Controllers
 
     public class BlogController : Controller
     {
-        [Route("")]
+        
         public IActionResult Index()
         {
-            return View();
+            return new ContentResult { Content = "sdadadsa" };
         }
 
         [Route("{year:int}/{month:int}/{key}")]

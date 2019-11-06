@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExploreCalifornia.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return new ContentResult { Content = "HEllo" };
-
+            return View();
+            //return new ContentResult { Content = "HEllo" };
             //Use String
             //return "Helloe";
         }
