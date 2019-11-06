@@ -12,7 +12,8 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Production"
+        "EnableDeveloperExceptions": "True",
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "ExploreCalifornia": {
