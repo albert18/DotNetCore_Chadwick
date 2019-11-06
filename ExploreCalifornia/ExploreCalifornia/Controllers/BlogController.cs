@@ -6,25 +6,34 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExploreCalifornia.Controllers
 {
+    [Route("blog")]
+
     public class BlogController : Controller
     {
+        [Route("")]
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Post(int? id)
+        [Route("{year:int}/{month:int}/{key}")]
+        public IActionResult Post(int year, int month, string key)
         {
-            if (id == null)
-            {
-                return new ContentResult { Content = "null" };
-            }
-            else 
-            {
-                return new ContentResult { Content = id.ToString() };
-            }
 
+            return new ContentResult { Content = string.Format("Year: {0}, Month: {1}, Key: {2}", year,month,key) };
             
         }
+
+        //public IActionResult Post(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new ContentResult { Content = "null" };
+        //    }
+        //    else
+        //    {
+        //        return new ContentResult { Content = id.ToString() };
+        //    }
+        //}
     }
 }
