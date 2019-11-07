@@ -16,27 +16,37 @@ namespace ExploreCalifornia
 {
     public class Startup
     {
-        private readonly IConfiguration configuration;
+        //private readonly IConfiguration configuration;
+
+        //public Startup(IConfiguration configuration)
+        //{
+        //    this.configuration = configuration;
+        //}
+
+        public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            Configuration = configuration;
         }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<FeatureToggles>(x => new FeatureToggles {
-                DeveloperExceptions = configuration.GetValue<bool>("FeatureToggles:DeveloperExceptions")
+                DeveloperExceptions = Configuration.GetValue<bool>("FeatureToggles:DeveloperExceptions")
             });
 
+            services.AddDbContext<BlogDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             //Add database
-            services.AddDbContext<BlogDataContext>(options =>
-            {
-                var connectionString = configuration.GetConnectionString("BlogDataContext");
-                options.UseSqlServer(connectionString);
-            });
+            //services.AddDbContext<BlogDataContext>(options =>
+            //{
+            //    var connectionString = configuration.GetConnectionString("BlogDataContext");
+            //    options.UseSqlServer(connectionString);
+            //});
 
             //Adding MVC
             services.AddMvc(option => option.EnableEndpointRouting = false);
