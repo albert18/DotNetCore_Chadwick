@@ -5,8 +5,4 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Model.Title</h1>
-<h1>@Model.Posted</h1>
-<h1>@Model.Author</h1>
-<h1>@Model.Body</h1>
-
+@await Html.PartialAsync("_Post")

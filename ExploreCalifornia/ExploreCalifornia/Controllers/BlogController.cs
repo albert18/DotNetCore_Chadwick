@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExploreCalifornia.Controllers
 {
-    //[Route("blog")]
+    [Route("blog")]
 
     public class BlogController : Controller
     {
@@ -18,7 +18,7 @@ namespace ExploreCalifornia.Controllers
             _db = db;
         }
 
-
+        [Route("index")]
         public IActionResult Index()
         {
             var posts = _db.Posts.OrderByDescending(x => x.Posted).Take(5).ToArray();
@@ -27,8 +27,10 @@ namespace ExploreCalifornia.Controllers
             return View(posts);
         }
 
-        [Route("blog/{year:int}/{month:int}/{key}")]
-        public IActionResult Post(int year, int month, string key)
+        //[Route("{year:int}/{month:int}/{key}")]
+        [Route("post")]
+        public IActionResult Post()
+        //public IActionResult Post(int year, int month, string key)
         {
             var post = new Post
             {
@@ -52,7 +54,7 @@ namespace ExploreCalifornia.Controllers
         /// <summary>
         /// Post Data
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>/
         [HttpPost, Route("create")]
         public IActionResult Create(Post post)
         {
