@@ -21,7 +21,10 @@ namespace ExploreCalifornia.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var posts = _db.Posts.OrderByDescending(x => x.Posted).Take(5).ToArray();
+            //var posts = _db.Posts.OrderByDescending(x => x.Posted).Take(5).ToArray();
+
+            return View(posts);
         }
 
         [Route("blog/{year:int}/{month:int}/{key}")]
