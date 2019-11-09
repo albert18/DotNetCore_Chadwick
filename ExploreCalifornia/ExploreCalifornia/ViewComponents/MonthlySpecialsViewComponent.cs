@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ExploreCalifornia.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,19 @@ namespace ExploreCalifornia.ViewComponents
     [ViewComponent]
     public class MonthlySpecialsViewComponent : ViewComponent
     {
-        public string Invoke()
+        private readonly BlogDataContext _db;
+
+        public MonthlySpecialsViewComponent(BlogDataContext db)
         {
-            return "Resuable Components";
+            this._db = db;
+        }
+
+        public IViewComponentResult Invoke()
+        {
+            //var specials = _db
+
+            //return "Resuable Components";
+            return View();
         }
             
     }
